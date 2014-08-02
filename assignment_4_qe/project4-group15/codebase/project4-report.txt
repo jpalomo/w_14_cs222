@@ -1,0 +1,10 @@
+In project 4, we extended the relation manager to coordinate data files and associated index files. During the creation of the system table, we create
+an index.tbl file to hold the information of indices of all relations. Each tuple in index.tbl file contains four fields: tableID, tableName, columnPosition
+and columnName. Additionally, an in-memory indexMap is built every time we initialize the relation manager. The format of indexMap is <tableID, <columnPoiton, RID in index.tbl>>
+This map helps us find all the index files associated with a given table. In the relation manager, we also modify insertTuple, deleteTuple, updateTuple, deleteTuples and
+deleteTable methods so that if a tuple in inserted, deleted or updates, all associated index files will also be changed.
+
+The implemetation of filter, project, nested loop join and index nested loop join Iterators are all straightforward as we only need to direct the implemented rm and ix
+to perform these operators.
+
+As for the aggregate functions we implemented, these were also done in a straightforward manner.  Each aggregate function first determines which field the aggregate operation will be performed on.  Once this has been determined, the respective iterator is used to a retrieve a tuple at a time.  A loop is used to find the field we are aggregating and the value of the field is retrieved.  The getAttributes function simple creates a string concatenating the aggregate option with the table and field name and sets this in the name field of the attribute in the attribute vector.  
